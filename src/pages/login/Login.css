@@ -150,7 +150,7 @@ a {
 }
 .form input {
   width: 100%;
-  padding: 12px 8px;   /* reduce side padding */
+  padding: 12px 1px;   /* reduce side padding */
   margin-bottom: 16px;
   border: 1px solid #334155;
   border-radius: 12px;
