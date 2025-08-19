@@ -147,3 +147,15 @@ a:hover {
     padding: 12px;
   }
 }
+.form input {
+  width: 100%;
+  padding: 12px 8px;   /* reduce side padding */
+  margin-bottom: 16px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.75);
+  color: #E2E8F0;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.25s ease;
+}

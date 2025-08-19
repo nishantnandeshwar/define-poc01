@@ -87,7 +87,7 @@ const MembershipDirectory: React.FC = () => {
   return (
     <div className="membership-container">
       <h2>Membership Directory</h2>
-      <p>Total Members: {total} • Loaded: {membersList.length} • Current Page: {currentPage} • Total Page: {totalPage}</p>
+      <p> Loaded: {membersList.length} • Current Page: {currentPage} • Total Page: {totalPage}</p>
 
       <div className="table-wrapper" ref={tableWrapperRef}>
         <table className="member-table">
