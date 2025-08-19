@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import './Login.css';
 
-// Context ka type define karna zaroori hai
+
 interface OutletContext {
   token: string | null;
   onLogin?: (token: string) => void;
@@ -13,7 +13,7 @@ export default function Login() {
   const errRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
-  // TypeScript ko context ka type batana padega
+  
   const { token, onLogin } = useOutletContext<OutletContext>();
 
   const [user, setUser] = useState<string>('');

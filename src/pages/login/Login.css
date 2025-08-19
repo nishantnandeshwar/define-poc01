@@ -1,4 +1,4 @@
-/* Full viewport */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -10,19 +10,17 @@ html, body {
   justify-content: center;
   align-items: center;
 }
-
-/* Wrapper */
 .auth-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 16px; /* responsive spacing */
+  padding: 16px; 
   box-sizing: border-box;
 }
 
-/* Card with glassmorphism */
+
 .card {
   background: rgba(30, 41, 59, 0.85);
   backdrop-filter: blur(14px);
@@ -39,7 +37,7 @@ html, body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
 }
 
-/* Header */
+
 .card-header h2 {
   margin: 0 0 10px;
   color: #60a5fa;
@@ -55,7 +53,7 @@ html, body {
   text-align: center;
 }
 
-/* Labels */
+
 .form label {
   display: block;
   color: #e2e8f0;
@@ -64,7 +62,7 @@ html, body {
   font-size: 14px;
 }
 
-/* Inputs */
+
 .form input {
   width: 100%;
   padding: 12px 14px;
@@ -84,7 +82,7 @@ html, body {
   background: rgba(15, 23, 42, 0.9);
 }
 
-/* Button */
+
 .btn {
   display: inline-block;
   width: 100%;
@@ -110,7 +108,7 @@ html, body {
   transform: scale(0.98);
 }
 
-/* Error */
+
 .error {
   background: rgba(239, 68, 68, 0.1);
   color: #f87171;
@@ -121,7 +119,7 @@ html, body {
   text-align: center;
 }
 
-/* Hint */
+
 .hint {
   color: #94a3b8;
   font-size: 13px;
@@ -139,7 +137,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* 🔥 Responsive tweaks */
+
 @media (max-width: 480px) {
   .card {
     padding: 28px 20px;

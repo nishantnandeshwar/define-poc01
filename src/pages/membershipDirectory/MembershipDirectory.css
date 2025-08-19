@@ -1,58 +1,80 @@
+
 .membership-container {
-  max-width: 1000px;
-  margin: auto;
+  width: 100%;
+  height: 85vh; 
   padding: 20px;
+  background: linear-gradient(135deg, #e3f2fd, #f9f9f9);
+  display: flex;
+  flex-direction: column;
 }
 
+/* Table Wrapper */
 .table-wrapper {
-  overflow-x: auto; /* responsive ke liye scroll */
+  flex: 1; 
+  overflow-y: auto; 
+  margin-bottom: 15px;
 }
 
+/* Member Table Styling */
 .member-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .member-table th,
 .member-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 14px;
   text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
 .member-table th {
-  background-color: #f4f4f4;
+  background: #1976d2;
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
+.member-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.member-table tr:hover {
+  background-color: #e3f2fd;
+  transition: 0.3s;
+}
+
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 10px;
+  overflow-x: auto; /* scroll horizontally */
+  white-space: nowrap;
 }
 
 .pagination button {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border: none;
-  background: #007bff;
+  background: #1976d2;
   color: white;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: 0.3s;
+  min-width: 40px;
+}
+
+.pagination button:hover {
+  background: #0d47a1;
 }
 
 .pagination button:disabled {
   background: #ccc;
   cursor: not-allowed;
-}
-
-@media (max-width: 600px) {
-  .member-table th,
-  .member-table td {
-    font-size: 12px;
-    padding: 6px;
-  }
-  .pagination span {
-    font-size: 12px;
-  }
 }
