@@ -85,9 +85,9 @@ const MembershipDirectory: React.FC = () => {
   }, [handleScroll]);
 
   return (
-    <div className="membership-container">
-      <h2>Membership Directory</h2>
-      <p> Loaded: {membersList.length} • Current Page: {currentPage} • Total Page: {totalPage}</p>
+    <div className="membership-container " >
+      <h2 style={{ textAlign: "center" }}>Membership Directory</h2>
+      
 
       <div className="table-wrapper" ref={tableWrapperRef}>
         <table className="member-table">
@@ -111,6 +111,7 @@ const MembershipDirectory: React.FC = () => {
           </tbody>
         </table>
       </div>
+      <p>  Current Page: {currentPage} • Total Page: {totalPage}</p>
       <LoaderModal loading={loading} message="Loading, please wait..." />
     </div>
   );

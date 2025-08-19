@@ -1,6 +1,6 @@
 
 .membership-container {
-  height: 85vh; 
+  height: 95vh; 
   padding: 20px;
   background: linear-gradient(135deg, #e3f2fd, #f9f9f9);
   display: flex;
@@ -76,4 +76,12 @@
 .pagination button:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+h2 {
+  margin-top: 8px;   
+  margin-bottom: 20px; 
+  font-size: 24px;
+  font-weight: 600;
+  color: #1E293B;
+  text-align: center;
 }
