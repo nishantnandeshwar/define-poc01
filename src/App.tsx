@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-function App() {
+export default function App() {
+  const [token, setToken] = useState(() => localStorage.getItem('token'));
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const onLogin = (tokenValue: any) => {
+    localStorage.setItem('token', tokenValue);
+    setToken(tokenValue);
+  };
+
+  const onLogout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+  };
+
+  // Redirect logic: if logged in and on '/', go to '/dashboard'
+  useEffect(() => {
+    if (token && location.pathname === '/') {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [token, location.pathname, navigate]);
+
+  // Protect /dashboard: if not logged in, go to '/'
+  useEffect(() => {
+    if (!token && location.pathname.startsWith('/dashboard')) {
+      navigate('/', { replace: true });
+    }
+  }, [token, location.pathname, navigate]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Outlet context={{ token, onLogin, onLogout }} />
   );
 }
 
-export default App;
