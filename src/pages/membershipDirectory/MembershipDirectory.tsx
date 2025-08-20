@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import "./MembershipDirectory.css"; // css alag file me
+import { getRequest } from "../../utils/apiClient";
 
 // Member type
 interface Member {
@@ -8,6 +9,10 @@ interface Member {
   firstName: string;
   lastName: string;
   email: string;
+}
+interface getMemberDataProps {
+  users: Member[];
+  total: number
 }
 
 const MembershipDirectory: React.FC = () => {
@@ -19,26 +24,46 @@ const MembershipDirectory: React.FC = () => {
 
   const limit = 5; // ek page me kitne members dikhane hai
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios
+  //     .get("https://dummyjson.com/users", {
+  //       params: {
+  //         limit,
+  //         skip: (page - 1) * limit,
+  //       },
+  //     })
+  //     .then((res: AxiosResponse<{ users: Member[]; total: number }>) => {
+  //       setMembers(res.data.users);
+  //       setTotal(res.data.total);
+  //       setLoading(false);
+  //     })
+  //     .catch((err: unknown) => {
+  //       setError("Failed to fetch members.");
+  //       setLoading(false);
+  //       console.error(err);
+  //     });
+  // }, [page]);
+
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("https://dummyjson.com/users", {
-        params: {
-          limit,
-          skip: (page - 1) * limit,
-        },
-      })
-      .then((res: AxiosResponse<{ users: Member[]; total: number }>) => {
-        setMembers(res.data.users);
-        setTotal(res.data.total);
-        setLoading(false);
-      })
-      .catch((err: unknown) => {
-        setError("Failed to fetch members.");
-        setLoading(false);
-        console.error(err);
-      });
+    getMembershipData
   }, [page]);
+
+  const getMembershipData = () => {
+    setLoading(true);
+    getRequest<getMemberDataProps>("/users", {
+      limit,
+      skip: (page - 1) * limit,
+    })
+      .then((data) => {
+        setMembers(data.users);
+        setTotal(data.total);
+      })
+      .catch(() => {
+        console.error("Failed to fetch members");
+      })
+      .finally(() => setLoading(false));
+  }
 
   const totalPages = Math.ceil(total / limit);
 
