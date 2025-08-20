@@ -1,105 +1,9 @@
-// import React, { useEffect, useState } from "react";
-// import axios, { AxiosResponse } from "axios";
-// import "./MembershipDirectory.css"; 
+import React, { useEffect, useRef, useState, useCallback, CSSProperties } from "react";
+import "./MembershipDirectory.css"; // css alag file me
 
-// // Member type
-// interface Member {
-//   id: number;
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-// }
+import LoaderModal from '../../components/LoaderModal'
+import { getMembershipDirectoryList } from "../../services/getMembershipDirectory.service";
 
-// const MembershipDirectory: React.FC = () => {
-//   const [members, setMembers] = useState<Member[]>([]);
-//   const [loading, setLoading] = useState<boolean>(true);
-//   const [error, setError] = useState<string | null>(null);
-//   const [total, setTotal] = useState<number>(0);
-//   const [page, setPage] = useState<number>(1);
-
-//   const limit = 5; 
-
-//   useEffect(() => {
-//     setLoading(true);
-//     axios
-//       .get("https://dummyjson.com/users", {
-//         params: {
-//           limit,
-//           skip: (page - 1) * limit,
-//         },
-//       })
-//       .then((res: AxiosResponse<{ users: Member[]; total: number }>) => {
-//         setMembers(res.data.users);
-//         setTotal(res.data.total);
-//         setLoading(false);
-//       })
-//       .catch((err: unknown) => {
-//         setError("Failed to fetch members.");
-//         setLoading(false);
-//         console.error(err);
-//       });
-//   }, [page]);
-
-//   const totalPages = Math.ceil(total / limit);
-
-//   if (loading) return <p>Loading members...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-//     <div className="membership-container">
-//       <h2>Membership Directory</h2>
-//       <p>Total Members: {total}</p>
-
-//       {/* Responsive Table */}
-//       <div className="table-wrapper">
-//         <table className="member-table">
-//           <thead>
-//             <tr>
-//               <th>ID</th>
-//               <th>First Name</th>
-//               <th>Last Name</th>
-//               <th>Email</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {members.map((member) => (
-//               <tr key={member.id}>
-//                 <td>{member.id}</td>
-//                 <td>{member.firstName}</td>
-//                 <td>{member.lastName}</td>
-//                 <td>{member.email}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* Pagination */}
-//       <div className="pagination">
-//         <button
-//           disabled={page === 1}
-//           onClick={() => setPage((prev) => prev - 1)}
-//         >
-//           Prev
-//         </button>
-//         <span>
-//           Page {page} of {totalPages}
-//         </span>
-//         <button
-//           disabled={page === totalPages}
-//           onClick={() => setPage((prev) => prev + 1)}
-//         >
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MembershipDirectory;
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import axios, { AxiosResponse } from "axios";
-import "./MembershipDirectory.css";
 
 type Member = {
   id: number;
@@ -116,76 +20,65 @@ type DummyJsonResp = {
   limit: number;
 };
 
-const LIMIT = 10;
+interface getMemberDataProps {
+  users: Member[];
+  total: number
+}
 
 const MembershipDirectory: React.FC = () => {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [page, setPage] = useState<number>(1);
+  const [membersList, setMembersList] = useState<Member[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const tableWrapperRef = useRef<HTMLDivElement | null>(null);
 
-  
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-
+  const [totalPage, setTotalPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const LIMIT = 30
 
   useEffect(() => {
-    let cancelled = false;
+    fetchPage(1);
+  }, []);
 
-    const fetchPage = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const res: AxiosResponse<DummyJsonResp> = await axios.get(
-          "https://dummyjson.com/users",
-          {
-            params: {
-              limit: LIMIT,
-              skip: (page - 1) * LIMIT,
-              select: "id,firstName,lastName,email,image",
-            },
-          }
-        );
-
-        if (cancelled) return;
-
-        setTotal(res.data.total);
-
-        // append 
-        setMembers((prev) => {
-          const next = [...prev, ...res.data.users];
-          setHasMore(next.length < res.data.total);
-          return next;
-        });
-      } catch (e) {
-        if (!cancelled) setError("Failed to fetch members.");
-      } finally {
-        if (!cancelled) setLoading(false);
+  const fetchPage = async (page: number) => {
+    try {
+      setLoading(true);
+      setCurrentPage(page)
+      const requestBody = {
+        limit: LIMIT, skip: (LIMIT * (page - 1)),
+        select: "id,firstName,lastName,email"
       }
-    };
 
-    fetchPage();
-    return () => {
-      cancelled = true;
-    };
-  }, [page]);
-
-  // scroll handler 
-  const handleScroll = useCallback(() => {
-    const el = wrapperRef.current;
-    if (!el || loading || !hasMore) return;
-
-    const nearBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 100;
-    if (nearBottom) {
-      setPage((p) => p + 1);
+      const data = await getMembershipDirectoryList(requestBody)
+      if (data) {
+        if (page == 1) {
+          setMembersList(data.users)
+        } else {
+          let currentData = membersList;
+          currentData = currentData.concat(data.users);
+          setMembersList(currentData);
+        }
+        setTotalPage(Math.ceil(data.total / LIMIT))
+        setTotal(data.total);
+      }
+    } catch (e) {
+      alert("Failed to fetch members.");
+    } finally {
+      setLoading(false);
     }
-  }, [loading, hasMore]);
+  };
 
-  
+  const handleScroll = useCallback(() => {
+    const el = tableWrapperRef.current;
+    if (!el || loading) return;
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 100) {
+      if (currentPage < totalPage) {
+        fetchPage(currentPage + 1); // Uncomment to load next page
+      }
+    }
+  }, [loading]);
+
   useEffect(() => {
-    const el = wrapperRef.current;
+    const el = tableWrapperRef.current;
     if (!el) return;
     el.addEventListener("scroll", handleScroll);
     return () => el.removeEventListener("scroll", handleScroll);
@@ -194,9 +87,9 @@ const MembershipDirectory: React.FC = () => {
   return (
     <div className="membership-container">
       <h2>Membership Directory</h2>
-      <p>Total Members: {total} • Loaded: {members.length} • Page: {page}</p>
+      <p>Total Members: {total} • Loaded: {membersList.length} • Current Page: {currentPage} • Total Page: {totalPage}</p>
 
-      <div className="table-wrapper" ref={wrapperRef}>
+      <div className="table-wrapper" ref={tableWrapperRef}>
         <table className="member-table">
           <thead>
             <tr>
@@ -207,7 +100,7 @@ const MembershipDirectory: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {members.map((m) => (
+            {membersList.map((m) => (
               <tr key={m.id}>
                 <td>{m.id}</td>
                 <td>{m.firstName}</td>
@@ -218,16 +111,7 @@ const MembershipDirectory: React.FC = () => {
           </tbody>
         </table>
       </div>
-
-      {loading && <p style={{ textAlign: "center", marginTop: 8 }}>Loading…</p>}
-      {!hasMore && (
-        <p style={{ textAlign: "center", marginTop: 8 }}>All data loaded ✅</p>
-      )}
-      {error && (
-        <p style={{ textAlign: "center", marginTop: 8, color: "#d32f2f" }}>
-          {error}
-        </p>
-      )}
+      <LoaderModal loading={loading} message="Loading, please wait..." />
     </div>
   );
 };
