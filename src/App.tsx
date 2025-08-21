@@ -26,7 +26,7 @@ export default function App() {
 
   // Protect /dashboard: if not logged in, go to '/'
   useEffect(() => {
-    if (!token && location.pathname.startsWith('/dashboard')) {
+    if (!token && (location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/membership-directory'))) {
       navigate('/', { replace: true });
     }
   }, [token, location.pathname, navigate]);
