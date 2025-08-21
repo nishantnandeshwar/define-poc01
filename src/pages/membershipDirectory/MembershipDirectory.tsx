@@ -13,18 +13,6 @@ type Member = {
   image?: string;
 };
 
-type DummyJsonResp = {
-  users: Member[];
-  total: number;
-  skip: number;
-  limit: number;
-};
-
-interface getMemberDataProps {
-  users: Member[];
-  total: number
-}
-
 const MembershipDirectory: React.FC = () => {
   const [membersList, setMembersList] = useState<Member[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -48,17 +36,17 @@ const MembershipDirectory: React.FC = () => {
         select: "id,firstName,lastName,email"
       }
 
-      const data = await getMembershipDirectoryList(requestBody)
+      const data: any = await getMembershipDirectoryList(requestBody)
       if (data) {
         if (page == 1) {
-          setMembersList(data.users)
+          setMembersList(data?.users)
         } else {
           let currentData = membersList;
-          currentData = currentData.concat(data.users);
+          currentData = currentData.concat(data?.users);
           setMembersList(currentData);
         }
-        setTotalPage(Math.ceil(data.total / LIMIT))
-        setTotal(data.total);
+        setTotalPage(Math.ceil(data?.total / LIMIT))
+        setTotal(data?.total);
       }
     } catch (e) {
       alert("Failed to fetch members.");
@@ -87,7 +75,7 @@ const MembershipDirectory: React.FC = () => {
   return (
     <div className="membership-container " >
       <h2 style={{ textAlign: "center" }}>Membership Directory</h2>
-      
+
 
       <div className="table-wrapper" ref={tableWrapperRef}>
         <table className="member-table">
@@ -100,7 +88,7 @@ const MembershipDirectory: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {membersList.map((m) => (
+            {membersList?.map((m) => (
               <tr key={m.id}>
                 <td>{m.id}</td>
                 <td>{m.firstName}</td>
@@ -108,11 +96,23 @@ const MembershipDirectory: React.FC = () => {
                 <td>{m.email}</td>
               </tr>
             ))}
+
           </tbody>
         </table>
+        {
+          (membersList?.length == 0 || membersList == undefined) &&
+          <div className="no-data">
+            <div>No data</div>
+          </div>
+        }
       </div>
-      <p>  Current Page: {currentPage} • Total Page: {totalPage}</p>
-      <LoaderModal loading={loading} message="Loading, please wait..." />
+      <div className="footer">
+        Current Page: {currentPage} • Total Page: {totalPage}
+      </div>
+      {
+        loading &&
+        <LoaderModal loading={loading} message="Loading, please wait..." />
+      }
     </div>
   );
 };

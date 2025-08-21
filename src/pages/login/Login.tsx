@@ -13,7 +13,7 @@ export default function Login() {
   const errRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
-  
+
   const { token, onLogin } = useOutletContext<OutletContext>();
 
   const [user, setUser] = useState<string>('');
@@ -64,27 +64,27 @@ export default function Login() {
 
           <label htmlFor="username">
             Username
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-            />
           </label>
+          <input
+            type="text"
+            id="username"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            required
+          />
 
           <label htmlFor="password">
             Password
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
           </label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+          />
 
           <button className="btn" type="submit">
             Sign In
