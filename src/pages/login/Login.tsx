@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import './Login.css';
+import styles from './Login.module.css';
 
 
 interface OutletContext {
@@ -49,15 +49,15 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-wrap">
-      <div className="card">
-        <div className="card-header">
+    <div className={styles.authWrap}>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
           <h2>Sign In</h2>
         </div>
 
-        <form className="form" onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           {errMsg && (
-            <div className="error" ref={errRef} aria-live="assertive">
+            <div className={styles.error} ref={errRef} aria-live="assertive">
               {errMsg}
             </div>
           )}
@@ -86,11 +86,11 @@ export default function Login() {
             required
           />
 
-          <button className="btn" type="submit">
+          <button className={styles.btn} type="submit">
             Sign In
           </button>
 
-          <p className="hint">
+          <p className={styles.hint}>
             Need an account? <a href="/register" className="link">Sign Up</a>
           </p>
         </form>

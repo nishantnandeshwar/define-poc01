@@ -1,0 +1,31 @@
+.container {
+    margin: 10px;
+}
+
+.container h1 {
+    text-align: center;
+    color: azure;
+}
+
+.detailsData {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container span {
+    color: azure;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.card {
+    background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 20px 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}

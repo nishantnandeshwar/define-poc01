@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback, CSSProperties } from "react";
-import "./MembershipDirectory.css"; // css alag file me
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import style from "./MembershipDirectory.module.css"; // css alag file me
 
 import LoaderModal from '../../components/LoaderModal'
 import { getMembershipDirectoryList } from "../../services/getMembershipDirectory.service";
+import { useNavigate } from "react-router-dom";
 
 
 type Member = {
@@ -15,14 +16,13 @@ type Member = {
 
 const MembershipDirectory: React.FC = () => {
   const [membersList, setMembersList] = useState<Member[]>([]);
-  const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const [totalPage, setTotalPage] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const LIMIT = 30
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchPage(1);
   }, []);
@@ -46,7 +46,6 @@ const MembershipDirectory: React.FC = () => {
           setMembersList(currentData);
         }
         setTotalPage(Math.ceil(data?.total / LIMIT))
-        setTotal(data?.total);
       }
     } catch (e) {
       alert("Failed to fetch members.");
@@ -72,13 +71,31 @@ const MembershipDirectory: React.FC = () => {
     return () => el.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const addMember = () => {
+    navigate("/add-members");
+  }
+
+  const navigateInDetail = (item: Member) => {
+    navigate("/detail-members", { state: { member: item } });
+  }
+
   return (
-    <div className="membership-container " >
-      <h2 style={{ textAlign: "center" }}>Membership Directory</h2>
+    <div className={style.membershipContainer} >
+      <div 
+      className={style.headerContainer}
+      // style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "relative", marginBottom: "16px" }}
+      >
+        <h2 className={style.headerLabel}>Membership Directory</h2>
+        <button
+          onClick={addMember}
+          className={style.addMemberBtn}
+        >
+          + Add Member
+        </button>
 
-
-      <div className="table-wrapper" ref={tableWrapperRef}>
-        <table className="member-table">
+      </div>
+      <div className={style.tableWrapper} ref={tableWrapperRef}>
+        <table className={style.memberTable}>
           <thead>
             <tr>
               <th>ID</th>
@@ -89,7 +106,11 @@ const MembershipDirectory: React.FC = () => {
           </thead>
           <tbody>
             {membersList?.map((m) => (
-              <tr key={m.id}>
+              <tr
+                key={m.id}
+                onClick={() => navigateInDetail(m)}
+                className={style.memberItems}
+              >
                 <td>{m.id}</td>
                 <td>{m.firstName}</td>
                 <td>{m.lastName}</td>
@@ -101,12 +122,12 @@ const MembershipDirectory: React.FC = () => {
         </table>
         {
           (membersList?.length == 0 || membersList == undefined) &&
-          <div className="no-data">
+          <div className={style.noData}>
             <div>No data</div>
           </div>
         }
       </div>
-      <div className="footer">
+      <div className={style.footer}>
         Current Page: {currentPage} • Total Page: {totalPage}
       </div>
       {
