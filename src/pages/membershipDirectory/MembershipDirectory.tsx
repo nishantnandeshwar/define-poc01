@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import style from "./MembershipDirectory.module.css"; // css alag file me
+import style from "./MembershipDirectory.module.css";
 
 import LoaderModal from '../../components/LoaderModal'
 import { getMembershipDirectoryList } from "../../services/getMembershipDirectory.service";
@@ -81,10 +81,7 @@ const MembershipDirectory: React.FC = () => {
 
   return (
     <div className={style.membershipContainer} >
-      <div 
-      className={style.headerContainer}
-      // style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "relative", marginBottom: "16px" }}
-      >
+      <div className={style.headerContainer} >
         <h2 className={style.headerLabel}>Membership Directory</h2>
         <button
           onClick={addMember}
@@ -132,7 +129,7 @@ const MembershipDirectory: React.FC = () => {
       </div>
       {
         loading &&
-        <LoaderModal loading={loading} message="Loading, please wait..." />
+        <LoaderModal loading={loading} message="Loading . ." />
       }
     </div>
   );

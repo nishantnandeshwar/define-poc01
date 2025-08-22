@@ -1,7 +1,8 @@
 .headerLabel {
   flex: 1;
   text-align: center;
-  margin: 0
+  margin: 0;
+  color: #2f3132;
 }
 
 .headerContainer {
@@ -15,7 +16,6 @@
 .membershipContainer {
   height: 95vh;
   padding: 20px;
-  background: linear-gradient(135deg, #e3f2fd, #f9f9f9);
   display: flex;
   flex-direction: column;
 }
@@ -34,6 +34,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
+  /* background: linear-gradient(135deg, #e3f2fd, #f9f9f9); */
 }
 
 .memberTable th,
@@ -52,6 +53,9 @@
 
 .memberTable tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+.memberTable tr:nth-child(odd) {
+  background-color: #e3e2e2;
 }
 
 .memberTable tr:hover {
@@ -104,6 +108,7 @@ h2 {
 .footer {
   text-align: center;
   padding: 10px;
+  color: #2f3132;
 }
 
 .noData {

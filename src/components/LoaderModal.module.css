@@ -1,5 +1,5 @@
 /* Fullscreen overlay */
-.loader-overlay {
+.loader_overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -10,7 +10,7 @@
 }
 
 /* Loader box */
-.loader-container {
+.loader_container {
   /* background: white; */
   padding: 24px 32px;
   border-radius: 16px;
@@ -21,8 +21,9 @@
 }
 
 /* Message text */
-.loader-message {
+.loader_message {
   margin-top: 12px;
   font-size: 14px;
+  font-weight: 800;
   color: #d7d7d8;
 }

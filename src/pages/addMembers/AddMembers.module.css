@@ -3,7 +3,7 @@
 }
 
 .title {
-    color: #E2E8F0;
+    color: #2f3132;
 }
 
 .form_container {
@@ -21,7 +21,7 @@
     backdrop-filter: blur(14px);
     border-radius: 18px;
     padding: 20px 20px;
-    width: 50%;
+    width: 40%;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
