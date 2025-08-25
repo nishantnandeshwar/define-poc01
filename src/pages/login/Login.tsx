@@ -10,7 +10,7 @@ import { showToast } from '../../components/toaster/toastHelper';
 
 
 interface OutletContext {
-  isLogIn: boolean | null;
+  isLogIn: boolean;
   onLogin?: (value: boolean) => void;
 }
 

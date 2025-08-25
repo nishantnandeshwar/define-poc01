@@ -18,10 +18,16 @@ export default function App() {
     setIsLogIn(value);
   };
 
-  const onLogout = () => {
+  const onLogout = (value: any) => {
     localStorage.removeItem('isLogin');
-    setIsLogIn(null);
+    setIsLogIn(value);
   };
+
+  useEffect(() => {
+    if (!isLogIn) {
+      navigate("/", { replace: true });
+    }
+  }, [isLogIn, location.pathname, navigate]);
 
   return (
     <Outlet

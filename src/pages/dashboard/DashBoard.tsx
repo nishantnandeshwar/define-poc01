@@ -7,19 +7,19 @@ import { logout } from "../../redux/actions/auth.action";
 
 
 interface OutletContextType {
-  onLogout?: () => void;
-  token?: string;
+  onLogout?: (value: boolean) => void;
+  isLogIn: boolean;
 }
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { onLogout, token } = useOutletContext<OutletContextType>();
+  const { onLogout, isLogIn } = useOutletContext<OutletContextType>();
 
   const dispatch = useAppDispatch();
 
   const logoutAndClearStore = () => {
     dispatch(logout());
-    onLogout?.();
+    onLogout?.(false);
     navigate("/", { replace: true });
   }
 
@@ -30,7 +30,7 @@ export default function Dashboard() {
   // console.log("getReduxState>>>", JSON.stringify(getReduxState()?.auth))
 
   function getUserName() {
-    return getReduxState()?.auth.user.FirstName + " " + getReduxState()?.auth.user.LastName
+    return getReduxState()?.auth?.user?.FirstName + " " + getReduxState()?.auth?.user?.LastName
   }
 
   return (
