@@ -17,14 +17,9 @@ export default function Dashboard() {
 
   const dispatch = useAppDispatch();
 
-  // const handleLogout = () => {
-  //   onLogout?.();
-  //   navigate("/", { replace: true });
-  // };
-
-
   const logoutAndClearStore = () => {
     dispatch(logout());
+    onLogout?.();
     navigate("/", { replace: true });
   }
 

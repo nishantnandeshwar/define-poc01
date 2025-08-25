@@ -10,15 +10,16 @@ import { showToast } from '../../components/toaster/toastHelper';
 
 
 interface OutletContext {
-  token: string | null;
-  onLogin?: (token: string) => void;
+  isLogIn: boolean | null;
+  onLogin?: (value: boolean) => void;
 }
 
 export default function Login() {
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-  const { token, onLogin } = useOutletContext<OutletContext>();
+
+  const { isLogIn, onLogin } = useOutletContext<OutletContext>();
 
   const [errMsg, setErrMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false)
@@ -29,6 +30,12 @@ export default function Login() {
   useEffect(() => {
     userRef.current?.focus();
   }, []);
+
+   useEffect(() => {
+    if (isLogIn) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isLogIn, navigate]);
 
   const validateForm = (e: FormEvent) => {
     e.preventDefault();
@@ -50,6 +57,7 @@ export default function Login() {
       if (resp.type === USER_AUTH_ACTION_TYPES.LOGIN_SUCCESS) {
         console.log("login success")
         showToast('success', 'Operation successful!')
+        onLogin?.(true);
         navigate('/dashboard', { replace: true });
       } else if (resp.type === USER_AUTH_ACTION_TYPES.LOGIN_FAILURE) {
         showToast('error', resp?.payload?.error || "Something went wrong !!")
