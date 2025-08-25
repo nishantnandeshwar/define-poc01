@@ -25,6 +25,9 @@ export default function Login() {
   const [loading, setLoading] = useState<boolean>(false)
   const [useName, setUserName] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [passwordShow, setPasswordShow] = useState<boolean>(false)
+  const [currentDateTime, setCurrentDateTime] = useState("");
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,6 +35,28 @@ export default function Login() {
   }, []);
 
    useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+
+      // Format: M/D/YYYY h:mm am/pm
+      const options: Intl.DateTimeFormatOptions = {
+        month: "numeric",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      };
+
+      setCurrentDateTime(now.toLocaleString("en-US", options));
+    };
+
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 60000); // Update every minute
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     if (isLogIn) {
       navigate('/dashboard', { replace: true });
     }
@@ -69,50 +94,78 @@ export default function Login() {
     }
   };
 
+  const handlePasswordVisibility = () => {
+    setPasswordShow(prev => !prev)
+  }
+
   return (
     <div className={styles.authWrap}>
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-          <h2>Sign In</h2>
+          <div className={styles.logoContainer}>
+            <img
+              src={require('../../assets/images/member_first_logo.png')}
+              alt="logo"
+              className={styles.logoImg}
+            />
+            <div className={styles.verticalBar}></div>
+            <span className={styles.mrmText}>MRM</span>
+          </div>
         </div>
         <form className={styles.form} onSubmit={validateForm}>
-          {/* {errMsg && (
-            <div className={styles.error} ref={errRef} aria-live="assertive">
-              {errMsg}
-            </div>
-          )} */}
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            ref={userRef}
-            autoComplete="off"
-            onChange={(e) => setUserName(e.target.value)}
-            value={useName}
-            required
-          />
+          <div className={styles.inputContainer}>
+            <img
+              src={require('../../assets/images/user.png')}
+              alt="user-logo"
+              className={styles.inputImg}
+            />
+            <input
+              type="text"
+              id="user_name"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setUserName(e.target.value)}
+              value={useName}
+              required
+              className={styles.inputStyle}
+              placeholder='username'
+            />
+          </div>
 
-          <label htmlFor="password"> Password </label>
-          <input
-            type="password"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            required
-          />
+          <div className={styles.inputContainer}>
+            <img
+              src={require('../../assets/images/key.png')}
+              alt="key-password"
+              className={styles.inputImg}
+            />
+            <input
+              type={passwordShow ? "text" : 'password'}
+              id="pass_word"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+              className={styles.inputStyle}
+              placeholder='password'
+            />
+            <img
+              src={passwordShow ? require('../../assets/images/show.png') : require('../../assets/images/hide.png')}
+              alt="hide-show"
+              className={styles.passwordHideShowImg}
+              onClick={handlePasswordVisibility}
+            />
+          </div>
 
           <button className={styles.btn} type="submit">
-            Sign In
+            Log In
           </button>
 
           <p className={styles.hint}>
-            Need an account? <a href="/register" className="link">Sign Up</a>
+            Need help logging in?<a href="/register" className="link"> Click here to reset your password.</a>
           </p>
         </form>
-       
-        {/* <button onClick={() => showToast('success', 'Operation successful!')}>
-          Show Toast
-        </button> */}
+      </div>
+      <div className={styles.footer}>
+        Copyright © 2025 MembersFirst {currentDateTime} - MRM 7.0
       </div>
       {
         loading &&
