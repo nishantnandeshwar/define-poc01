@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import style from "./MembershipDirectory.module.css";
 
-import LoaderModal from '../../components/LoaderModal'
+import LoaderModal from '../../components/loader/LoaderModal'
 import { getMembershipDirectoryList } from "../../services/getMembershipDirectory.service";
 import { useNavigate } from "react-router-dom";
 

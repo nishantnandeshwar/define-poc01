@@ -6,6 +6,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { privateRoutes } from './routes/route';
 
+import { Provider } from 'react-redux';
+import { createReduxStore } from './redux/store/Store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { combineReducers } from '@reduxjs/toolkit';
+import { UserAuthReducer } from './redux/reducer/auth.reducer';
+import Toaster from './components/toaster/Toaster';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -14,16 +21,26 @@ const router = createBrowserRouter([
   },
 ]);
 
+// combine reducers
+const rootReducer = combineReducers({
+  auth: UserAuthReducer,
+});
+const { store, persistor } = createReduxStore(rootReducer);
+
+export type RootState = ReturnType<typeof rootReducer>;
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <Provider store={store}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <Toaster />
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

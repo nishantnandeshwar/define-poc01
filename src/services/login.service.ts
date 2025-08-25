@@ -1,19 +1,19 @@
-import { postRequest } from "../utils/apiClient"
-import { ApiConstants } from "../utils/apiUrl"
+import { ApiConstants } from "../utils/apiUrl";
+import { httputil } from "../utils/HttpUtil";
 
-type loginUserProps = {
-    UserName: string;
-    Password: string;
-}
-export const loginUserService = async (RequestBody: loginUserProps) => {
-    try {
-        const res: any = await postRequest(
-            ApiConstants.login,
-            RequestBody
-        );
-        return res;
-    } catch (err) {
-        console.log("err:", err);
-        return undefined;
-    }
-}
+export const loginService = async (
+    baseUrl: string,
+    apiKey: string,
+    username: string,
+    password: string,
+) => {
+    httputil.setApiConstants(baseUrl, apiKey);
+    const resp = await httputil.post(
+        ApiConstants.login,
+        { UserName: username, Password: password },
+        null,
+        {},
+    );
+
+    return resp;
+};

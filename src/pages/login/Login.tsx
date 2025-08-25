@@ -1,7 +1,12 @@
 import React, { useRef, useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import styles from './Login.module.css';
-import { loginUserService } from '../../services/login.service';
+import { ConstantsUrl } from '../../utils/apiUrl';
+import { useAppDispatch } from '../../utils';
+import { loginUserService, logout } from '../../redux/actions/auth.action';
+import { USER_AUTH_ACTION_TYPES } from '../../redux/types/auth.type';
+import LoaderModal from '../../components/loader/LoaderModal';
+import { showToast } from '../../components/toaster/toastHelper';
 
 
 interface OutletContext {
@@ -13,55 +18,42 @@ export default function Login() {
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-
-
   const { token, onLogin } = useOutletContext<OutletContext>();
-  const [errMsg, setErrMsg] = useState<string>('');
 
+  const [errMsg, setErrMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false)
   const [useName, setUserName] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     userRef.current?.focus();
   }, []);
 
-  // useEffect(() => {
-  //   setErrMsg('');
-  // }, [user, pwd]);
-
-  // useEffect(() => {
-  //   if (token) {
-  //     navigate('/dashboard', { replace: true });
-  //   }
-  // }, [token, navigate]);
-
   const validateForm = (e: FormEvent) => {
     e.preventDefault();
-
     if (!useName.trim() || !password.trim()) {
       setErrMsg('Please fill in both fields.');
       return;
     }
     loginUser()
-    // // Dummy auth: accept any non-empty credentials
-    // const fakeToken = 'sample_token';
-    // onLogin?.(fakeToken);
-    // navigate('/dashboard', { replace: true });
   };
 
   const loginUser = async () => {
     try {
       setLoading(true);
-      const requestBody = {
-        UserName: useName,
-        Password: password
-      }
+      const resp: any = await dispatch(
+        loginUserService(ConstantsUrl.BASE_URL, ConstantsUrl.API_KEY_CONSTANT, useName, password)
+      );
+      // console.log("resp>>", JSON.stringify(resp))
 
-      const data: any = await loginUserService(requestBody)
-      console.log("loginUser data>>", JSON.stringify(data))
-      navigate('/dashboard', { replace: true });
+      if (resp.type === USER_AUTH_ACTION_TYPES.LOGIN_SUCCESS) {
+        console.log("login success")
+        showToast('success', 'Operation successful!')
+        navigate('/dashboard', { replace: true });
+      } else if (resp.type === USER_AUTH_ACTION_TYPES.LOGIN_FAILURE) {
+        showToast('error', resp?.payload?.error || "Something went wrong !!")
+      }
     } catch (e) {
       alert("Failed to fetch members.");
     } finally {
@@ -109,7 +101,15 @@ export default function Login() {
             Need an account? <a href="/register" className="link">Sign Up</a>
           </p>
         </form>
+       
+        {/* <button onClick={() => showToast('success', 'Operation successful!')}>
+          Show Toast
+        </button> */}
       </div>
+      {
+        loading &&
+        <LoaderModal loading={loading} message="Loading . ." />
+      }
     </div>
   );
 }
