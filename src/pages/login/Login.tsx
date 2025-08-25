@@ -56,7 +56,7 @@ export default function Login() {
 
       if (resp.type === USER_AUTH_ACTION_TYPES.LOGIN_SUCCESS) {
         console.log("login success")
-        showToast('success', 'Operation successful!')
+        showToast('success', 'Login successful!')
         onLogin?.(true);
         navigate('/dashboard', { replace: true });
       } else if (resp.type === USER_AUTH_ACTION_TYPES.LOGIN_FAILURE) {
