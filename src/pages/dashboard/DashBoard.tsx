@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import styles from './Dashboard.module.css';
 import { getReduxState } from "../../redux/store/Store";
@@ -36,6 +36,61 @@ export default function Dashboard() {
   const handleOptionMenu = () => {
     setOptionMenuOpen(prev => !prev)
   }
+
+  const applicatios = [
+    {
+      'COMMUNICATIONS': []
+    },
+    {
+      'CLUB ACTIVITY': []
+    },
+    {
+      'DINING': []
+    },
+    {
+      'MEMBERSHIP': [
+        { route: '/member-activities', value: 'Member Activities/Tracking' },
+        { route: '/member-batch-edit', value: 'Member Batch Edit' },
+        { route: '/member-dates-isting', value: 'Member Dates Listing' },
+        { route: '/member-directory', value: 'Member Directory' },
+        { route: '/member-export', value: 'Member Export' },
+        { route: '/member-password', value: 'Member Passwords' },
+
+         { route: '/member-activities', value: 'Member Activities/Tracking' },
+        { route: '/member-batch-edit', value: 'Member Batch Edit' },
+        { route: '/member-dates-isting', value: 'Member Dates Listing' },
+        { route: '/member-directory', value: 'Member Directory' },
+        { route: '/member-export', value: 'Member Export' },
+        { route: '/member-password', value: 'Member Passwords' },
+         { route: '/member-activities', value: 'Member Activities/Tracking' },
+        { route: '/member-batch-edit', value: 'Member Batch Edit' },
+        { route: '/member-dates-isting', value: 'Member Dates Listing' },
+        { route: '/member-directory', value: 'Member Directory' },
+        { route: '/member-export', value: 'Member Export' },
+        { route: '/member-password', value: 'Member Passwords' },
+         { route: '/member-activities', value: 'Member Activities/Tracking' },
+        { route: '/member-batch-edit', value: 'Member Batch Edit' },
+        { route: '/member-dates-isting', value: 'Member Dates Listing' },
+        { route: '/member-directory', value: 'Member Directory' },
+        { route: '/member-export', value: 'Member Export' },
+        { route: '/member-password', value: 'Member Passwords' },
+         { route: '/member-activities', value: 'Member Activities/Tracking' },
+        { route: '/member-batch-edit', value: 'Member Batch Edit' },
+        { route: '/member-dates-isting', value: 'Member Dates Listing' },
+        { route: '/member-directory', value: 'Member Directory' },
+        { route: '/member-export', value: 'Member Export' },
+        { route: '/member-password', value: 'Member Passwords' },
+      ]
+    },
+    {
+      'ACCOUNT STATEMENTS': []
+    },
+  ]
+
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const handleApplication = (header: string) => {
+    setExpanded((prev) => (prev === header ? null : header));
+  };
 
   return (
     <div className={styles.dashboardContainer}>
@@ -83,15 +138,45 @@ export default function Dashboard() {
 
         </div>
       </header>
-      <div className={styles.dashboardContainer}>
+      <div className={styles.dashboardBodyContainer}>
         <div className={styles.dashboardCard}>
-          <h1>Dashboard</h1>
-          <div className={styles.dashboardButtons}>
-            <button
-              className={`${styles.btn} ${styles.btnMembership}`}
-              onClick={handleMembership}>
-              Membership Directory
-            </button>
+          <div className={styles.applicationHead}>
+            <span className={styles.title}>APPLICATIONS</span>
+          </div>
+          <div className={styles.applicationBody}>
+            <div className={styles.description}>
+              Click a link below to expand the menu of applications
+            </div>
+            <div className={styles.applicationItemContainer}>
+              {
+                applicatios.map((item, index) => {
+                  const header = Object.keys(item)[0];
+                  const values = item[header as keyof typeof item] as {
+                    route: string;
+                    value: string;
+                  }[];
+
+                  return (
+                    <div key={index} className={styles.section}>
+                      <div className={styles.itemContainer} onClick={() => handleApplication(header)}>
+                        <li className={styles.headerLabel}>
+                          {expanded === header ? "-" : "+"} {header}
+                        </li>
+                      </div>
+                      {expanded === header && values.length > 0 && (
+                        <ul className={styles.subList}>
+                          {values.map((subItem, subIndex) => (
+                            <li key={subIndex} className={styles.subItem}>
+                              <a href={subItem.route}>{subItem.value}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       </div>
