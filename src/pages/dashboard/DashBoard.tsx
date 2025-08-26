@@ -87,7 +87,9 @@ export default function Dashboard() {
         <div className={styles.dashboardCard}>
           <h1>Dashboard</h1>
           <div className={styles.dashboardButtons}>
-            <button className={`${styles.btn, styles.btnMembership}`} onClick={handleMembership}>
+            <button
+              className={`${styles.btn} ${styles.btnMembership}`}
+              onClick={handleMembership}>
               Membership Directory
             </button>
           </div>
