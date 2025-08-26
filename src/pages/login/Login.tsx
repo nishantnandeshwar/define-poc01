@@ -34,7 +34,7 @@ export default function Login() {
     userRef.current?.focus();
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const updateDateTime = () => {
       const now = new Date();
 
@@ -101,16 +101,14 @@ export default function Login() {
   return (
     <div className={styles.authWrap}>
       <div className={styles.card}>
-        <div className={styles.cardHeader}>
-          <div className={styles.logoContainer}>
-            <img
-              src={require('../../assets/images/member_first_logo.png')}
-              alt="logo"
-              className={styles.logoImg}
-            />
-            <div className={styles.verticalBar}></div>
-            <span className={styles.mrmText}>MRM</span>
-          </div>
+        <div className={styles.logoContainer}>
+          <img
+            src={require('../../assets/images/member_first_logo.png')}
+            alt="logo"
+            className={styles.logoImg}
+          />
+          <div className={styles.verticalBar}></div>
+          <span className={styles.mrmText}>MRM</span>
         </div>
         <form className={styles.form} onSubmit={validateForm}>
           <div className={styles.inputContainer}>
@@ -159,9 +157,9 @@ export default function Login() {
             Log In
           </button>
 
-          <p className={styles.hint}>
+          <span className={styles.hint}>
             Need help logging in?<a href="/register" className="link"> Click here to reset your password.</a>
-          </p>
+          </span>
         </form>
       </div>
       <div className={styles.footer}>
