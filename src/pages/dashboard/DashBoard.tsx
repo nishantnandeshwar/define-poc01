@@ -4,7 +4,7 @@ import { getReduxState } from "../../redux/store/Store";
 import { logout } from "../../redux/actions/auth.action";
 import { useAppDispatch } from "../../utils";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { dashBoardData } from "./constant/DashBoardConstant";
+import { dashBoardData } from "./DashBoardConstant";
 
 interface OutletContextType {
     onLogout?: (value: boolean) => void;
