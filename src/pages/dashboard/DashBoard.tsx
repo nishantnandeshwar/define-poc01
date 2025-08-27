@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./DashboardNew.module.css";
+import styles from "./Dashboard.module.css";
 import { getReduxState } from "../../redux/store/Store";
 import { logout } from "../../redux/actions/auth.action";
 import { useAppDispatch } from "../../utils";
