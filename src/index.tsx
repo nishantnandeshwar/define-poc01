@@ -13,6 +13,10 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { UserAuthReducer } from './redux/reducer/auth.reducer';
 import Toaster from './components/toaster/Toaster';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // For collapse/accordion
+
+
 const router = createBrowserRouter([
   {
     path: '/',

@@ -102,13 +102,14 @@ export default function Login() {
     <div className={styles.authWrap}>
       <div className={styles.card}>
         <div className={styles.logoContainer}>
+
           <img
-            src={require('../../assets/images/member_first_logo.png')}
+            src={require('../../assets/images/MFLogo-2019.png')}
             alt="logo"
             className={styles.logoImg}
           />
-          <div className={styles.verticalBar}></div>
-          <span className={styles.mrmText}>MRM</span>
+          {/* <div className={styles.verticalBar}></div>
+          <span className={styles.mrmText}>MRM</span> */}
         </div>
         <form className={styles.form} onSubmit={validateForm}>
           <div className={styles.inputContainer}>

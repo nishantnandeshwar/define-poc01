@@ -3,7 +3,9 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #d0d0d0, #d6e4f9);
+  /* background: linear-gradient(135deg, #d0d0d0, #d6e4f9); */
+  background: #fff;;
   /* background: linear-gradient(135deg, #0f172a, #1e293b); */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
 }
