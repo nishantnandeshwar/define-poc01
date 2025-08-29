@@ -5,6 +5,8 @@ import AddMembers from "../pages/addMembers/AddMembers";
 import MemberDetailScreen from "../pages/membershipDirectory/MemberDetails";
 import Dashboard1 from "../pages/dashboard/DashBoard1";
 
+import MemberProfile from "../pages/MemberProfile/MemberProfile";
+
 // Private (layout) routes
 export const privateRoutes = [
   { path: '/', element: <Login /> },
@@ -13,4 +15,6 @@ export const privateRoutes = [
   { path: "membership-directory", element: <MembershipDirectory /> },
   { path: "add-members", element: <AddMembers /> },
   { path: "detail-members", element: <MemberDetailScreen /> },
+
+  { path: "member-profile", element: <MemberProfile /> },
 ];

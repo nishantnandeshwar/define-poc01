@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import style from './AddMembers.module.css';
 
 const AddMembers: React.FC = () => {
@@ -6,6 +7,7 @@ const AddMembers: React.FC = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; email?: string }>({});
+    const navigate = useNavigate(); 
 
     const validate = () => {
         const newErrors: { firstName?: string; lastName?: string; email?: string } = {};
@@ -31,7 +33,6 @@ const AddMembers: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validate()) {
-            // Submit logic here
             alert(`Submitted: ${firstName} ${lastName} (${email})`);
             setFirstName("");
             setLastName("");
@@ -42,12 +43,20 @@ const AddMembers: React.FC = () => {
 
     return (
         <div className={style.container}>
+            {/* 👇 Button added top-left */}
+            <div className={style.topBar}>
+                <button 
+                    className={style.navBtn} 
+                    onClick={() => navigate("/member-profile")}
+                >
+                     Member Profile
+                </button>
+            </div>
+
             <h2 className={style.title}>Add New Members</h2>
             <section className={style.form_container}>
                 <form className={style.form} onSubmit={handleSubmit}>
-                    <label htmlFor="firstname">
-                        First Name
-                    </label>
+                    <label htmlFor="firstname">First Name</label>
                     <input
                         type="text"
                         id="firstname"
@@ -59,22 +68,18 @@ const AddMembers: React.FC = () => {
                     />
                     {errors.firstName && <span className={style.error}>{errors.firstName}</span>}
 
-                    <label htmlFor="lastname">
-                        Last Name:
-                    </label>
+                    <label htmlFor="lastname">Last Name</label>
                     <input
                         type="text"
                         id="lastname"
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
                         required
-                         placeholder="Enter Last Name"
+                        placeholder="Enter Last Name"
                     />
                     {errors.lastName && <span className={style.error}>{errors.lastName}</span>}
 
-                    <label htmlFor="email">
-                        Email
-                    </label>
+                    <label htmlFor="email">Email</label>
                     <input
                         type="text"
                         id="email"
@@ -82,7 +87,7 @@ const AddMembers: React.FC = () => {
                         onChange={e => setEmail(e.target.value)}
                         value={email}
                         required
-                         placeholder="Enter Email"
+                        placeholder="Enter Email"
                     />
                     {errors.email && <span className={style.error}>{errors.email}</span>}
 
