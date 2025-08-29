@@ -47,7 +47,7 @@ const Dashboard1 = () => {
                 { title: "Member Activities/Tracking", route: 'Member-Activities-Tracking' },
                 { title: "Member Batch Edi", route: 'Member-Batch-Edi' },
                 { title: "Member Dates Listing", route: 'Member-Dates-Listing' },
-                { title: "Member Directory", route: 'Member-Directory' },
+                { title: "Member Directory", route: 'add-new-members' },
                 { title: "Member Directory Summary", route: 'Member-Directory-Summary' },
 
             ]
@@ -59,6 +59,10 @@ const Dashboard1 = () => {
             ]
         }
     ];
+
+    const handleNavigation = (route:string) => {
+        navigate(`/${route}`, { replace: false });
+    }
 
     return (
         <div>
@@ -126,12 +130,11 @@ const Dashboard1 = () => {
                                                                     <div className="accordion-body">
                                                                         {
                                                                             item?.content?.map((subItem) =>
-                                                                                <div className="d-flex justify-content-between align-items-center mb-1">
+                                                                                <div className="d-flex justify-content-between align-items-center mb-1 pinter">
 
-                                                                                    <a className="flex-1 hover-primary py-1 px-2 bg-light rounded-start" href="guest_classification_list.html">
-                                                                                        <i className="i-16 fa-solid fa-user-tag me-2"></i>
+                                                                                    <div className="flex-1 hover-primary py-1 px-2 bg-light rounded-start" onClick={() => handleNavigation(subItem.route)}>
                                                                                         <span>{subItem?.title}</span>
-                                                                                    </a>
+                                                                                    </div>
                                                                                 </div>
                                                                             )
                                                                         }
@@ -142,12 +145,9 @@ const Dashboard1 = () => {
                                                     })
                                                 }
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -183,22 +183,6 @@ const Dashboard1 = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <div className="accordion mb-3 mb-lg-4 shadow-2" id="tab-needhelp">
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="headingOne">
-                                        <h5 className="font-2 bg-dark-primary text-white text-uppercase acc-white-arrow px-3 py-2 mb-0 rounded-1 accordion-button collapsed" role="button"
-                                            data-bs-toggle="collapse" data-bs-target="#needhelp" aria-expanded="false" aria-controls="needhelp">
-                                            Need Some Help?
-                                        </h5>
-                                    </h2>
-                                    <div id="needhelp" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#tab-needhelp">
-                                        <div className="accordion-body p-2">
-                                            This is the content inside the accordion. You can place text, images, or even other components here.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </section>

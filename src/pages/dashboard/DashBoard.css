@@ -119,15 +119,24 @@ header {
 }
 
 .dropdown-toggle.hide-arrow::after {
-  display: none; /* hides default Bootstrap arrow */
+    display: none;
+    /* hides default Bootstrap arrow */
 }
+
 .accordion-button.collapsed {
-  color: #212529;    
-  background-color: #455560;
+    color: #212529;
+    background-color: #455560;
 }
+
 .accordion-button:not(.collapsed) {
     background-color: #455560 !important;
 }
+
 .acc-white-arrow::after {
-  filter: invert(1); /* makes arrow white */
+    filter: invert(1);
+    /* makes arrow white */
+}
+
+.pinter {
+    cursor: pointer;
 }
