@@ -1,20 +1,23 @@
-import { useNavigate, useOutletContext } from "react-router-dom";
-import { useAppDispatch } from "../../utils";
-import { logout } from "../../redux/actions/auth.action";
-import { getReduxState } from "../../redux/store/Store";
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import './Header.css';
+import { useAppDispatch } from '../../utils';
+import { useState } from 'react';
+import { logout } from '../../redux/actions/auth.action';
+import { getReduxState } from '../../redux/store/Store';
 import { faLock, faPowerOff, faCircleQuestion, faGears, faUser, faChevronDown, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 
 interface OutletContextType {
     onLogout?: (value: boolean) => void;
     isLogIn: boolean;
 }
-const Header = () => {
+const NewHeader = () => {
     const { onLogout, isLogIn } = useOutletContext<OutletContextType>();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [optionMenuOpen, setOptionMenuOpen] = useState(false);
+    const location = useLocation();
+    console.log("location>>>", JSON.stringify(location))
 
     const handleOptions = (value: string) => {
         switch (value) {
@@ -36,19 +39,56 @@ const Header = () => {
                 break;
         }
     }
-
     const getUserName = () => {
         return getReduxState()?.auth?.user?.FirstName + " " + getReduxState()?.auth?.user?.LastName
     }
+    const filterScreenHeaderOptions = ["List", 'New', 'Related', 'Summary', 'Fullscreen']
+
+    const actionOnHeaderOption = (value: string) => { // used in member-profile
+        switch (value) {
+            case "List":
+                alert(`you click on ${value}`)
+                break;
+            case "New":
+                navigate("add-new-members", { replace: false });
+                break;
+            case "Related":
+                alert(`you click on ${value}`)
+                break;
+            case "Summary":
+                alert(`you click on ${value}`)
+                break;
+            case "Fullscreen":
+                alert(`you click on ${value}`)
+                break;
+        }
+    }
     return (
-        <header className="d-flex flex-column flex-md-row justify-content-between px-md-4 py-md-2 bg-white">
-            <div className="header-left d-flex justify-content-start align-items-center py-2 px-3 px-md-0 py-md-0">
-                <img
-                    src={require('../../assets/images/MFLogo-2019.png')}
-                    alt="logo"
-                    className="header-logo w-auto"
-                />
+        <header className="top-header">
+            <div className="header-left">
+                <div className="logo">MembersFirst</div>
+                <button className="btn small">Quick Links ▾</button>
             </div>
+
+            <div className="header-center">
+                <div className="search-box">
+                    <input type="text" placeholder="Need some help?" />
+                </div>
+            </div>
+
+            {
+                location.pathname == "/member-profile" &&
+                <div className="header-right">
+                    <div className="header-buttons">
+                        {filterScreenHeaderOptions.map((list, index) => (
+                            <button className="btn small" key={index} onClick={() => actionOnHeaderOption(list)}>{list}</button>
+                        ))}
+                    </div>
+                    {/* <div className="user-menu">
+                    <span>👤 {getUserName()} ▾</span>
+                </div> */}
+                </div>
+            }
             <div className="header-right d-flex flex-row justify-content-between justify-content-md-end justify-content-xl-between align-items-center p-2 p-md-0">
                 <div className="d-flex flex-row justify-content-end align-items-center">
                     <div className="btn-group border-0 border-start hide-border-start-down-md border-light rounded-0 ps-1 ps-sm-3 ms-1 ms-sm-3">
@@ -105,8 +145,9 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+
         </header>
     )
 }
 
-export default Header;
+export default NewHeader

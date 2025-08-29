@@ -1,35 +1,12 @@
 import React from "react";
 import "./MemberProfile.css";
+import NewHeader from "../header/Header";
 
 const MemberProfile: React.FC = () => {
   return (
     <div className="member-profile">
       {/* --------- TOP HEADER SECTION --------- */}
-      <header className="top-header">
-        <div className="header-left">
-          <div className="logo">MembersFirst</div>
-          <button className="btn small">Quick Links ▾</button>
-        </div>
-
-        <div className="header-center">
-          <div className="search-box">
-            <input type="text" placeholder="Need some help?" />
-          </div>
-        </div>
-
-        <div className="header-right">
-          <div className="header-buttons">
-            <button className="btn small">List</button>
-            <button className="btn small">New</button>
-            <button className="btn small">Related</button>
-            <button className="btn small">Summary</button>
-            <button className="btn small">Fullscreen</button>
-          </div>
-          <div className="user-menu">
-            <span>👤 Define Admin ▾</span>
-          </div>
-        </div>
-      </header>
+      <NewHeader />
 
       <div className="content-area">
         <div className="project-box">
