@@ -4,6 +4,7 @@ import MembershipDirectory from "../pages/membershipDirectory/MembershipDirector
 import AddMembers from "../pages/addMembers/AddMembers";
 import MemberDetailScreen from "../pages/membershipDirectory/MemberDetails";
 import Dashboard1 from "../pages/dashboard/DashBoard1";
+import AddNewMembers from "../pages/addMembers/AddMembers01";
 
 import MemberProfile from "../pages/MemberProfile/MemberProfile";
 
@@ -14,6 +15,7 @@ export const privateRoutes = [
   { path: "dashboard", element: <Dashboard1 /> }, //Dashboard1
   { path: "membership-directory", element: <MembershipDirectory /> },
   { path: "add-members", element: <AddMembers /> },
+  { path: "add-new-members", element: <AddNewMembers /> },
   { path: "detail-members", element: <MemberDetailScreen /> },
 
   { path: "member-profile", element: <MemberProfile /> },
