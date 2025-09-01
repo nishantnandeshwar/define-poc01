@@ -130,7 +130,7 @@ const Dashboard = () => {
                                                                     <div className="accordion-body">
                                                                         {
                                                                             item?.content?.map((subItem, index) =>
-                                                                                <div className="d-flex justify-content-between align-items-center mb-1 pinter" key={index}>
+                                                                                <div className="d-flex justify-content-between align-items-center mb-1 pointer" key={index}>
                                                                                     <div className="flex-1 hover-primary py-1 px-2 bg-light rounded-start" onClick={() => handleNavigation(subItem.route)}>
                                                                                         <span>{subItem?.title}</span>
                                                                                     </div>

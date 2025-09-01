@@ -7,8 +7,9 @@ export const loginService = async (
     username: string,
     password: string,
 ) => {
-    httputil.setApiConstants(baseUrl, apiKey);
+    // httputil.setApiConstants(baseUrl, apiKey);
     const resp = await httputil.post(
+        baseUrl,
         ApiConstants.login,
         { UserName: username, Password: password },
         null,

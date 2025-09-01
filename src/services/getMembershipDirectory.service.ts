@@ -1,28 +1,16 @@
-import { getRequest } from "../utils/apiClient"
 import { ApiConstants } from "../utils/apiUrl"
+import { httputil } from "../utils/HttpUtil";
 
-type Member = {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    image?: string;
+export const getMembershipDirectoryList = async (
+    RequestBody: any
+) => {
+    const baseUrl = "https://dummyjson.com"
+    const resp = await httputil.get(
+        baseUrl,
+        ApiConstants.getMembershipDirectory,
+        RequestBody,
+        null,
+    );
+
+    return resp;
 };
-
-type getMemberDataProps = {
-    users: Member[];
-    total: number
-}
-
-export const getMembershipDirectoryList = async (RequestBody: any) => {
-    try {
-        const res = await getRequest<getMemberDataProps>(
-            ApiConstants.getMembershipDirectory,
-            RequestBody
-        );
-        return res;
-    } catch (err) {
-        console.log("err:", err);
-        return undefined;
-    }
-}

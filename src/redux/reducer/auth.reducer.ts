@@ -20,7 +20,7 @@ const userAuthReducer: Reducer<any> = (
     state = initialUserAuthState,
     action: UserAuthAction,
 ) => {
-    console.log("action>>>", action)
+    // console.log("action>>>", action)
     switch (action.type) {
         case USER_AUTH_ACTION_TYPES.LOGIN_FAILURE:
             return {};
