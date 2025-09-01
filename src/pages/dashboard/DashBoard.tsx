@@ -1,7 +1,8 @@
 import './DashBoard.css'
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../utils";
-import Header from "./Header";
+import Header from '../header/Header';
+// import Header from "./Header";
 
 
 const Dashboard = () => {
@@ -47,10 +48,8 @@ const Dashboard = () => {
                 { title: "Member Activities/Tracking", route: 'Member-Activities-Tracking' },
                 { title: "Member Batch Edi", route: 'Member-Batch-Edi' },
                 { title: "Member Dates Listing", route: 'Member-Dates-Listing' },
-                // { title: "Member Directory", route: 'add-new-members' },
                 { title: "Member Directory", route: 'member-profile' },
                 { title: "Member Directory Summary", route: 'Member-Directory-Summary' },
-
             ]
 
         },
@@ -61,14 +60,14 @@ const Dashboard = () => {
         }
     ];
 
-    const handleNavigation = (route:string) => {
-        navigate(`/${route}`, { replace: false });
+    const handleNavigation = (route: string) => {
+        navigate(`/${route}`, { replace: false, state: { screenName: route == "member-profile" ? "List" : "" } });
     }
 
     return (
         <div>
             <Header />
-            <main className="container-lg container-fluid mt-3 mt-lg-4" id="main-container">
+            <main className="container-lg container-fluid mt-2 mt-lg-2" id="main-container">
                 <section>
                     <div className="row">
                         <div className="col-12 col-lg-6">
@@ -105,7 +104,7 @@ const Dashboard = () => {
                                             </div>
                                             <div className="accordion innerAccordion" id="tab-applications-inner">
                                                 {
-                                                    applications?.map((item,index) => {
+                                                    applications?.map((item) => {
                                                         return (
                                                             <div className="accordion-item mb-3 border rounded" key={item.id}>
                                                                 <div className="accordion-header"
@@ -130,7 +129,7 @@ const Dashboard = () => {
                                                                 >
                                                                     <div className="accordion-body">
                                                                         {
-                                                                            item?.content?.map((subItem,index) =>
+                                                                            item?.content?.map((subItem, index) =>
                                                                                 <div className="d-flex justify-content-between align-items-center mb-1 pinter" key={index}>
                                                                                     <div className="flex-1 hover-primary py-1 px-2 bg-light rounded-start" onClick={() => handleNavigation(subItem.route)}>
                                                                                         <span>{subItem?.title}</span>

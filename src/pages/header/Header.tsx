@@ -17,7 +17,7 @@ const NewHeader = () => {
     const navigate = useNavigate();
     const [optionMenuOpen, setOptionMenuOpen] = useState(false);
     const location = useLocation();
-    console.log("location>>>", JSON.stringify(location))
+    // console.log("location>>>", JSON.stringify(location))
 
     const handleOptions = (value: string) => {
         switch (value) {
@@ -42,15 +42,23 @@ const NewHeader = () => {
     const getUserName = () => {
         return getReduxState()?.auth?.user?.FirstName + " " + getReduxState()?.auth?.user?.LastName
     }
-    const filterScreenHeaderOptions = ["List", 'New', 'Related', 'Summary', 'Fullscreen']
+
+    const filterScreenHeaderOptions = [
+        { title: "List", icon: <i className="fa-solid fa-list me-1"></i> },
+        { title: "New", icon: <i className="fa-solid fa-circle-plus me-1"></i> },
+        { title: "Related", icon: <i className="fa-solid fa-circle-chevron-down me-1"></i> },
+        { title: "Summary", icon: <i className="fa-solid fa-circle-exclamation me-1"></i> },
+        // { title: "Fullscreen", icon: <i className="fa-solid fa-up-right-and-down-left-from-center me-0"></i> },
+
+    ]
 
     const actionOnHeaderOption = (value: string) => { // used in member-profile
         switch (value) {
             case "List":
-                alert(`you click on ${value}`)
+                if (location.pathname !== "/member-profile") navigate("/member-profile", { replace: false, state: { screenName: 'List' } });
                 break;
             case "New":
-                navigate("add-new-members", { replace: false });
+                if (location.pathname !== "/add-new-members") navigate("/add-new-members", { replace: false, state: { screenName: 'New' } });
                 break;
             case "Related":
                 alert(`you click on ${value}`)
@@ -58,35 +66,55 @@ const NewHeader = () => {
             case "Summary":
                 alert(`you click on ${value}`)
                 break;
-            case "Fullscreen":
-                alert(`you click on ${value}`)
-                break;
+            // case "Fullscreen":
+            //     alert(`you click on ${value}`)
+            //     break;
         }
     }
+    // console.log("${location.pathname}>>", location)
     return (
-        <header className="top-header">
-            <div className="header-left">
-                <div className="logo">MembersFirst</div>
-                <button className="btn small">Quick Links ▾</button>
+        <header className="d-flex flex-column flex-md-row justify-content-between px-md-4 py-md-2 bg-white">
+            <div className="header-left d-flex justify-content-start align-items-center py-2 px-3 px-md-0 py-md-0">
+                <img
+                    src={require('../../assets/images/MFLogo-2019.png')}
+                    alt="logo"
+                    className="header-logo w-auto"
+                />
+                {/* {
+                    location.pathname == "/member-profile" &&
+                    <button className="btn small">Quick Links ▾</button>
+                } */}
             </div>
-
-            <div className="header-center">
-                <div className="search-box">
-                    <input type="text" placeholder="Need some help?" />
+            {
+                (location.pathname == "/member-profile" || location.pathname == "/add-new-members") &&
+                <div className="header-center">
+                    <div className="search-box">
+                        <input type="text" placeholder="Need some help?" />
+                    </div>
                 </div>
-            </div>
+            }
 
             {
-                location.pathname == "/member-profile" &&
+                (location.pathname == "/member-profile" || location.pathname == "/add-new-members") &&
                 <div className="header-right">
                     <div className="header-buttons">
                         {filterScreenHeaderOptions.map((list, index) => (
-                            <button className="btn small" key={index} onClick={() => actionOnHeaderOption(list)}>{list}</button>
+                            <button
+                                // className="btn small text-start mb-2 mb-xl-0 me-xl-1"
+                                className={`btn small text-start mb-2 mb-xl-0 me-xl-1 ${location.state.screenName == list.title ? "btn-active": ""}`}
+                                key={index}
+                                onClick={() => actionOnHeaderOption(list.title)}
+                            >
+                                {list.icon} {list.title}
+                            </button>
+                            // <button
+                            //     className="btn small" key={index}
+                            //     onClick={() => actionOnHeaderOption(list.title)}
+                            // >
+                            //     {list.icon} {list.title}
+                            // </button>
                         ))}
                     </div>
-                    {/* <div className="user-menu">
-                    <span>👤 {getUserName()} ▾</span>
-                </div> */}
                 </div>
             }
             <div className="header-right d-flex flex-row justify-content-between justify-content-md-end justify-content-xl-between align-items-center p-2 p-md-0">
@@ -94,16 +122,9 @@ const NewHeader = () => {
                     <div className="btn-group border-0 border-start hide-border-start-down-md border-light rounded-0 ps-1 ps-sm-3 ms-1 ms-sm-3">
                         <div className="dropdown-toggle d-flex align-items-center hide-arrow hide" data-bs-toggle="dropdown" aria-expanded="false" role="button" onClick={() => setOptionMenuOpen(prev => !prev)} >
                             <div className="d-flex bg-light rounded-1 align-items-center">
-                                <FontAwesomeIcon icon={faUser} className="me-2 h5 px-2 py-2 border-white border-end mb-0" />
+                                <i className="h5 border-white border-end mb-0 fa-regular fa-user icon-padding"></i>
                                 <h5 className="ps-3 pe-2 py-2 border-white border-end mb-0 rounded-1">{getUserName()}</h5>
-                                <FontAwesomeIcon
-                                    icon={faChevronDown}
-                                    className="ps-2 pe-2 py-2 border-white border-end d-flex align-items-center rounded-1"
-                                    style={{
-                                        transform: optionMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
-                                        transition: "transform 0.3s ease",
-                                    }}
-                                />
+                                <i className=" border-white border-end fa-solid fa-chevron-down d-flex align-items-center rounded-1 icon-padding"></i>
                             </div>
                         </div>
                         <div className="dropdown-menu fade-in dropdown-menu-end mt-1 mt-xl-3 rounded-3 border-0 shadow-sm p-0">
@@ -145,7 +166,6 @@ const NewHeader = () => {
                     </div>
                 </div>
             </div>
-
         </header>
     )
 }

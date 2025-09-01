@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff; 
+  background: #ffffff;
   padding: 0 20px;
   height: 60px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -46,27 +46,54 @@
 
 .header-buttons {
   display: flex;
-  gap: 8px;
+  gap: 2px;
 }
 
 .btn.small {
-  padding: 4px 8px;       
-  border-radius: 4px;     
-  font-size: 12px;        
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
   border: 1px solid #ccc;
-  background: #fff;
-  color: #333;
-  min-width: auto;        
-  white-space: nowrap;    
+  color: #6c757d;
+  min-width: auto;
+  white-space: nowrap;
 }
 
 .btn.small:hover {
-  background: #f2f2f2;
+  background: #6c757d;
+  color: #fff !important;
+}
+
+.btn-active {
+  background: #6c757d;
+  color: #fff !important;
 }
 
 .user-menu {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.dropdown-toggle.show .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.dropdown-toggle .fa-chevron-down {
+  transition: all 0.2s linear;
+}
+
+.icon-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn.active {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }

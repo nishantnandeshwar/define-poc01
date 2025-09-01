@@ -6,6 +6,7 @@ html, body {
   /* background: linear-gradient(135deg, #d0d0d0, #d6e4f9); */
   background: #fff;;
   /* background: linear-gradient(135deg, #0f172a, #1e293b); */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   overflow-y: auto;
+  color: #333;
 }
