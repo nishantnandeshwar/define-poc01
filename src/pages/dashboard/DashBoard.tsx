@@ -95,7 +95,7 @@ const Dashboard = () => {
                                             Applications
                                         </h5>
                                     </div>
-                                    <div id="applications" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#tab-applications">
+                                    <div id="applications" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#tab-applications"> 
                                         <div className="accordion-body p-2">
                                             <div className="d-flex justify-content-end justify-content-sm-between mb-2">
                                                 <div className="flex-1 fs-12 d-none d-sm-flex justify-content-start align-items-center ps-1">
@@ -110,7 +110,7 @@ const Dashboard = () => {
                                                                 <div className="accordion-header"
                                                                     id={`innerHeading-${item.id}`}
                                                                 >
-                                                                    <button className="accordion-button hide-accordion-arrow rounded shadow-1 d-flex justify-content-between align-items-center p-2 collapsed"
+                                                                    <button className="accordion-button hide-accordion-arrow rounded shadow-1 d-flex justify-content-between align-items-center p-2 collapsed bg-child-card"
                                                                         type="button"
                                                                         data-bs-toggle="collapse"
                                                                         data-bs-target={`#innerCollapse-${item.id}`}
@@ -118,7 +118,7 @@ const Dashboard = () => {
                                                                         aria-controls={`innerCollapse-${item.id}`}
                                                                     >
                                                                         <span className="ps-2">
-                                                                            <span className="ps-2 text-white">{item.title}</span>
+                                                                            <span className="ps-2 label-child-card ">{item.title}</span>
                                                                         </span>
                                                                     </button>
                                                                 </div>

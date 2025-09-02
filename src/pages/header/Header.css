@@ -39,8 +39,7 @@
 }
 
 .header-right {
-  display: flex;
-  align-items: center;
+  display: flex !important;
   gap: 20px;
 }
 
@@ -96,4 +95,8 @@
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
+}
+
+.w-14rem {
+  width: 14rem !important;
 }

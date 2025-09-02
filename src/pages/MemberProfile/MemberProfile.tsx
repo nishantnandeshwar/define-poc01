@@ -83,11 +83,11 @@ const MemberProfile = () => {
             <Header />
             <main className="container-lg container-fluid mt-2 mt-lg-2" id="main-container" >
                 <section className="breadcrumb-section w-100 d-flex mb-3">
-                    <div className="d-flex align-items-center px-3 py-2 bg-white text-primary rounded-2 shadow-2 me-2 card-30">
+                    <div className="d-flex align-items-center px-3 py-2 bg-white text-primary rounded-2 shadow-2 me-2 card-20">
                         <i className="fa-solid fa-desktop me-2"></i>
                         <strong>Project Management Site #1</strong>
                     </div>
-                    <nav aria-label="breadcrumb" className="d-flex justify-content-start align-items-center flex-1 px-3 py-2 bg-white rounded-2 shadow-2 card-70">
+                    <nav aria-label="breadcrumb" className="d-flex justify-content-start align-items-center flex-1 px-3 py-2 bg-white rounded-2 shadow-2 card-80">
                         <ol className="breadcrumb mb-0">
                             <li className="breadcrumb-item text-primary"><a href="#">Home</a></li>
                             <li className="breadcrumb-item active" aria-current="page">Member Directory</li>

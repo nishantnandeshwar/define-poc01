@@ -2,12 +2,14 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-.card-30 {
-    width: 30%;
+.card-20 {
+    width: 20vw;
+    flex: 1;
 }
 
-.card-70 {
-    width: 70%;
+.card-80 {
+    width: 80vw;
+    flex: 2.5;
 }
 
 .card-100 {
