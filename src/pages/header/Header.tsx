@@ -133,7 +133,7 @@ const NewHeader = () => {
                             <div className="header-buttons">
                                 {filterScreenHeaderOptions.map((list, index) => (
                                     <button
-                                        className={`btn small text-start mb-xl-0 me-xl-1 ${location.state.screenName == list.title ? "btn-active" : ""}`}
+                                        className={`btn small text-start mb-xl-0 me-xl-1 ${location.state?.screenName == list.title ? "btn-active" : ""}`}
                                         key={index}
                                         onClick={() => actionOnHeaderOption(list.title)}
                                     >
